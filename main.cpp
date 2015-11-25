@@ -50,7 +50,7 @@ int main()
     double angle = 45;
     double voy = vo*sin(angle*PI/180);
     double vox = vo*cos(angle*PI/180);
-    cout<<vox<<" , "<<voy<<endl;
+    cout<<"vox: "<<vox<<" , voy: "<<voy<<endl;
 
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
@@ -66,7 +66,6 @@ int main()
         al_flip_display();
         degree+=PI/40;
         t+=0.07;
-//        al_rest(0.3);
     }
 
     cout<<"---- Fin del Programa ----"<<endl;
