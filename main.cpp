@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 //LIBRERIAS DE ALLEGRO
@@ -25,12 +26,31 @@ ALLEGRO_TIMER *timer = NULL;
 
 int width = 1000, height = 450;
 int initAllegro();
+double PI = 3.1416;
 
 int main()
 {
     if(initAllegro() != 0)
         return -1;
 
+    ALLEGRO_BITMAP *ship = al_load_bitmap("Assets/enemyBlack1.png");
+    if (!ship)
+        return 0;
+    double degree = 0;
+    double cx = al_get_bitmap_width(ship)/2;
+    double cy = al_get_bitmap_height(ship)/2;
+    double x = 0;
+    double xo = 100;
+    double yo = 100;
+    double y = yo;
+
+    double vo = (100);
+    double g = (9.8);
+    double t = 0;
+    double angle = 45;
+    double voy = vo*sin(angle*PI/180);
+    double vox = vo*cos(angle*PI/180);
+    cout<<vox<<" , "<<voy<<endl;
 
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
@@ -38,8 +58,15 @@ int main()
         {
             break;
         }
+        x = xo + vox*t;
+        y = height - (yo + voy*t - (0.5*g*t*t));
+        cout<<x<<" , "<<y<<endl;
         al_clear_to_color(al_map_rgb(0,200,0));
+        al_draw_scaled_rotated_bitmap(ship, cx, 0, x, y,1,1, 0, 0);
         al_flip_display();
+        degree+=PI/40;
+        t+=0.07;
+//        al_rest(0.3);
     }
 
     cout<<"---- Fin del Programa ----"<<endl;
