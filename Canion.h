@@ -1,8 +1,9 @@
+#include "Entidad.h"
 #ifndef CANION_H
 #define CANION_H
 
 
-class Canion
+class Canion : public Entidad
 {
     public:
         Canion();
