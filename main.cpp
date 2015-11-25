@@ -6,8 +6,7 @@ using namespace std;
 
 //LIBRERIAS DE ALLEGRO
 #include <allegro5/allegro.h>
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_native_dialog.h"
+#include <allegro5/allegro_image.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
@@ -38,15 +37,15 @@ int main()
     if (!ship)
         return 0;
     double degree = 0;
-    int cx = al_get_bitmap_width(ship)/2;
-    int cy = al_get_bitmap_height(ship)/2;
-    int x = 0;
-    int xo = 100;
-    int yo = 100;
-    int y = yo;
+    double cx = al_get_bitmap_width(ship)/2;
+    double cy = al_get_bitmap_height(ship)/2;
+    double x = 0;
+    double xo = 100;
+    double yo = 100;
+    double y = yo;
 
-    int vo = (100);
-    int g = (9.8);
+    double vo = (100);
+    double g = (9.8);
     double t = 0;
     double angle = 45;
     double voy = vo*sin(angle*PI/180);
