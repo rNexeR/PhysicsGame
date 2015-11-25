@@ -11,10 +11,11 @@
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
 
-1448158849 source:/home/rnexer/Documents/PhysicsGame/main.cpp
+1448473168 source:/home/rnexer/Documents/PhysicsGame/main.cpp
 	<iostream>
 	<stdio.h>
 	<iostream>
+	<math.h>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
 	"allegro5/allegro_native_dialog.h"

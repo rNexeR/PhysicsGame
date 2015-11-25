@@ -42,16 +42,16 @@ int main()
     int cy = al_get_bitmap_height(ship)/2;
     int x = 0;
     int xo = 100;
-    int yo = 0;
+    int yo = 100;
     int y = yo;
 
-    int vo = (150/3);
-    int g = (9.8/3);
-    int t = 0;
-    int angle = 90;
-    int voy = sin(angle*PI/180);
-    int vox = cos(angle*PI/180);
-    cout<<vox<<" , "<<voy<<endl;
+    int vo = (100);
+    int g = (9.8);
+    double t = 0;
+    double angle = 45;
+    double voy = vo*sin(angle*PI/180);
+    double vox = vo*cos(angle*PI/180);
+    cout<<"vox: "<<vox<<" , voy: "<<voy<<endl;
 
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
@@ -66,8 +66,7 @@ int main()
         al_draw_scaled_rotated_bitmap(ship, cx, 0, x, y,1,1, 0, 0);
         al_flip_display();
         degree+=PI/40;
-        t++;
-        al_rest(0.3);
+        t+=0.07;
     }
 
     cout<<"---- Fin del Programa ----"<<endl;
