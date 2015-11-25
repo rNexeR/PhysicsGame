@@ -7,6 +7,8 @@ class Pendulo
     public:
         Pendulo();
         virtual ~Pendulo();
+
+
     protected:
     private:
 };
