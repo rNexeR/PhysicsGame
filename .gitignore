@@ -25,6 +25,8 @@
 # Cpp
 *.depend
 *.layout
+bin/*.*
+obj/*.*
 
 # Executables
 *.exe
