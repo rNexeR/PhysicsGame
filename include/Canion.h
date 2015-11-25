@@ -7,7 +7,6 @@ class Canion
     public:
         Canion();
         virtual ~Canion();
-
     protected:
     private:
 };
