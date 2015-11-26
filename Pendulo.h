@@ -9,6 +9,10 @@ class Pendulo : public Entidad
         Pendulo();
         virtual ~Pendulo();
 
+        ALLEGRO_BITMAP *ball,*thread;
+
+        void act(ALLEGRO_EVENT* ev);
+        void draw();
 
     protected:
     private:
