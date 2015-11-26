@@ -36,7 +36,7 @@ int main()
     double cx = al_get_bitmap_width(ship)/2;
     double cy = al_get_bitmap_height(ship)/2;
     double x = 0;
-    double xo = 100;
+    double xo = 0;
     double yo = 100;
     double y = yo;
 
@@ -60,8 +60,10 @@ int main()
         y = HEIGHT - (yo + voy*t - (0.5*g*t*t));
         cout<<x<<" , "<<y<<endl;
         al_clear_to_color(al_map_rgb(0,200,0));
+        canion->act(&ev);
         canion->draw();
-        al_draw_scaled_rotated_bitmap(ship, cx, 0, x, y,1,1, 0, 0);
+        al_draw_bitmap(ship, x, y, 0);
+        //al_draw_scaled_rotated_bitmap(ship, cx, 0, x, y,1,1, 0, 0);
         al_flip_display();
         degree+=PI/40;
         t+=0.07;
@@ -70,6 +72,7 @@ int main()
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
 }
+
 /**
     Inicialización de las funciones de Allegro
 **/

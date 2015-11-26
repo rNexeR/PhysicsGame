@@ -32,6 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Box.cpp" />
+		<Unit filename="Box.h" />
+		<Unit filename="Canion.cpp" />
+		<Unit filename="Canion.h" />
+		<Unit filename="Entidad.cpp" />
+		<Unit filename="Entidad.h" />
+		<Unit filename="Global.h" />
 		<Unit filename="Pendulo.cpp" />
 		<Unit filename="Pendulo.h" />
 		<Unit filename="main.cpp" />

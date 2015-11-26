@@ -1,6 +1,6 @@
 #include "Entidad.h"
 
-Entidad::Entidad() : Entidad(new Box(0,0,0,0),1,"")
+Entidad::Entidad() : Entidad(new Box(0,0,0,0,1),1,"")
 {
 
 }
