@@ -1,6 +1,4 @@
 #include <iostream>
-#include <stdio.h>
-#include <iostream>
 #include <math.h>
 using namespace std;
 
@@ -11,10 +9,10 @@ using namespace std;
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include "Canion.h"
+#include "Entidad.h"
 
 using namespace std;
-
-const float FPS = 60;
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -24,9 +22,7 @@ ALLEGRO_EVENT ev;
 ALLEGRO_TIMEOUT timeout;
 ALLEGRO_TIMER *timer = NULL;
 
-int width = 1000, height = 450;
 int initAllegro();
-double PI = 3.1416;
 
 int main()
 {
@@ -52,6 +48,8 @@ int main()
     double vox = vo*cos(angle*PI/180);
     cout<<"vox: "<<vox<<" , voy: "<<voy<<endl;
 
+    Entidad *canion = new Canion(event_queue, NULL);
+
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -59,9 +57,10 @@ int main()
             break;
         }
         x = xo + vox*t;
-        y = height - (yo + voy*t - (0.5*g*t*t));
+        y = HEIGHT - (yo + voy*t - (0.5*g*t*t));
         cout<<x<<" , "<<y<<endl;
         al_clear_to_color(al_map_rgb(0,200,0));
+        canion->draw();
         al_draw_scaled_rotated_bitmap(ship, cx, 0, x, y,1,1, 0, 0);
         al_flip_display();
         degree+=PI/40;
@@ -88,7 +87,7 @@ int initAllegro()
         return -1;
     }
 
-    display = al_create_display(width, height);
+    display = al_create_display(WIDTH, HEIGHT);
     if(!display)
     {
         cout<<"failed to create display!\n"<<endl;

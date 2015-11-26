@@ -4,9 +4,10 @@
 
 //Librerías y archivos necesarios
 #include "Box.h"
+#include "Global.h"
 #include <allegro5/allegro.h>
 #include "allegro5/allegro_image.h"
-#include "allegro5/allegro_native_dialog.h"
+//#include "allegro5/allegro_native_dialog.h"
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <iostream>
@@ -17,19 +18,27 @@
 
 using namespace std;
 
+enum MYKEYS {
+    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+};
+
 class Entidad
 {
     public:
         //Atributos
         bool colisionado;
-        Box *detalles = new Box(0,0,0,0); //donde estará y de donde se comprueban las colisiones
-        float velocity = 1; //cuanto se mueve
-        string tipoObjeto = ""; //muestra que objeto es: obstacle, disparo, enemy, etc.
+        Box *hitbox;// = new Box(0,0,0,0); //donde estará y de donde se comprueban las colisiones
+        float velocity;// = 1; //cuanto se mueve
+        string tipoObjeto;// = ""; //muestra que objeto es: obstacle, disparo, enemy, etc.
+        double xcenter, ycenter;
+        bool key[6] = { false, false, false, false};
         virtual void act(ALLEGRO_EVENT* ev) = 0;
         virtual void draw() = 0;//dibujo de la figura
         bool colision(Box*detalles, Box* pCaja);//detectar colisiones con otros objetos
         Entidad();
+        Entidad(Box*,float,string);
         virtual ~Entidad();
+        void validarTeclas(ALLEGRO_EVENT* ev);
     protected:
     private:
 };
