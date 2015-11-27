@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="Box.cpp" />
 		<Unit filename="Box.h" />
+		<Unit filename="Bullet.cpp" />
+		<Unit filename="Bullet.h" />
 		<Unit filename="Canion.cpp" />
 		<Unit filename="Canion.h" />
 		<Unit filename="Entidad.cpp" />

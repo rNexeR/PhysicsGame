@@ -1,5 +1,4 @@
 #include <iostream>
-#include <math.h>
 using namespace std;
 
 //LIBRERIAS DE ALLEGRO
@@ -22,53 +21,50 @@ ALLEGRO_EVENT ev;
 ALLEGRO_TIMEOUT timeout;
 ALLEGRO_TIMER *timer = NULL;
 
-int initAllegro();
+ALLEGRO_SAMPLE *game = NULL;
+ALLEGRO_SAMPLE_ID igame;
 
+int initAllegro();
+int Entidad::bullet_count = 0;
 int main()
 {
+
     if(initAllegro() != 0)
         return -1;
 
-    ALLEGRO_BITMAP *ship = al_load_bitmap("Assets/enemyBlack1.png");
-    if (!ship)
-        return 0;
-    double degree = 0;
-    double cx = al_get_bitmap_width(ship)/2;
-    double cy = al_get_bitmap_height(ship)/2;
-    double x = 0;
-    double xo = 0;
-    double yo = 100;
-    double y = yo;
+    list<Entidad*> *entidades = new list<Entidad*>();
+    vector<list<Entidad*>::iterator>borrar;
+    entidades->push_back(new Canion(event_queue, entidades));
 
-    double vo = (100);
-    double g = (9.8);
-    double t = 0;
-    double angle = 45;
-    double voy = vo*sin(angle*PI/180);
-    double vox = vo*cos(angle*PI/180);
-    cout<<"vox: "<<vox<<" , voy: "<<voy<<endl;
-
-    Entidad *canion = new Canion(event_queue, NULL);
-
-    while(true){
+    while(true)
+    {
+        al_play_sample(game, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
             break;
         }
-        x = xo + vox*t;
-        y = HEIGHT - (yo + voy*t - (0.5*g*t*t));
-        cout<<x<<" , "<<y<<endl;
         al_clear_to_color(al_map_rgb(0,200,0));
-        canion->act(&ev);
-        canion->draw();
-        al_draw_bitmap(ship, x, y, 0);
-        //al_draw_scaled_rotated_bitmap(ship, cx, 0, x, y,1,1, 0, 0);
+        for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
+        {
+            (*i)->act(&ev);
+            (*i)->draw();
+
+            if((*i)->hitbox->x > WIDTH || (*i)->hitbox->y > HEIGHT)
+                borrar.push_back(i);
+
+        }
+
+        for(int x = 0; x < borrar.size(); x++){
+            delete((*borrar[x]));
+            entidades->erase(borrar[x]);
+        }
+        borrar.clear();
         al_flip_display();
-        degree+=PI/40;
-        t+=0.07;
     }
 
+
+    al_stop_sample(&igame);
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
 }
@@ -120,6 +116,13 @@ int initAllegro()
     {
         cout<<"failed to initialize Audio!"<<endl;
     }
+
+    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(2))
+    {
+        cout<<"failed to initialize Audio!"<<endl;
+    }
+
+    game = al_load_sample("FiveHoursOriginalMixtonoku.wav");
 
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon

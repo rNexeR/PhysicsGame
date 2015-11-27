@@ -28,48 +28,18 @@ bool Entidad::colision(Box* hitBox, Box* pCaja){
         return true;
 }
 
-void Entidad::validarTeclas(ALLEGRO_EVENT* ev)
+string Entidad::intToString(int number)
 {
-    if(ev->type == ALLEGRO_EVENT_KEY_DOWN)
+    if (number == 0)
+        return "0";
+    std::string temp="";
+    std::string returnvalue="";
+    while (number>0)
     {
-        switch(ev->keyboard.keycode)
-        {
-        case ALLEGRO_KEY_W:
-            key[KEY_UP] = true;
-            break;
-
-        case ALLEGRO_KEY_S:
-            key[KEY_DOWN] = true;
-            break;
-
-        case ALLEGRO_KEY_A:
-            key[KEY_LEFT] = true;
-            break;
-
-        case ALLEGRO_KEY_D:
-            key[KEY_RIGHT] = true;
-            break;
-        }
+        temp+=number%10+48;
+        number/=10;
     }
-    if(ev->type == ALLEGRO_EVENT_KEY_UP)
-    {
-        switch(ev->keyboard.keycode)
-        {
-        case ALLEGRO_KEY_W:
-            key[KEY_UP] = false;
-            break;
-
-        case ALLEGRO_KEY_S:
-            key[KEY_DOWN] = false;
-            break;
-
-        case ALLEGRO_KEY_A:
-            key[KEY_LEFT] = false;
-            break;
-
-        case ALLEGRO_KEY_D:
-            key[KEY_RIGHT] = false;
-            break;
-        }
-    }
+    for (int i=0; i<(int)temp.length(); i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
 }
