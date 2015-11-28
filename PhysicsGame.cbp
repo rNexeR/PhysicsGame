@@ -36,6 +36,8 @@
 		<Unit filename="Box.h" />
 		<Unit filename="Canion.cpp" />
 		<Unit filename="Canion.h" />
+		<Unit filename="Castel.cpp" />
+		<Unit filename="Castel.h" />
 		<Unit filename="Entidad.cpp" />
 		<Unit filename="Entidad.h" />
 		<Unit filename="Pendulo.cpp" />
