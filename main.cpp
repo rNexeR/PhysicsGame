@@ -55,7 +55,7 @@ int main()
             (*i)->act(&ev);
             (*i)->draw();
 
-            if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion")
+            if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Explosion")
             {
                 if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
                 {
@@ -64,7 +64,7 @@ int main()
                 }
             }
 
-            if((*i)->hitbox->x > WIDTH || (*i)->hitbox->y > HEIGHT)
+            if((*i)->hitbox->x > WIDTH || (*i)->hitbox->y > HEIGHT || ( (*i)->tipoObjeto == "Explosion" ) && (((Explosion*)(*i))->destroied))
                 borrar.push_back(i);
 
         }

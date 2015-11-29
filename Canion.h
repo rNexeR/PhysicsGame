@@ -4,6 +4,7 @@
 
 #include "Entidad.h"
 #include "Bullet.h"
+#include "Explosion.h"
 #include <vector>
 
 enum MYKEYS {
