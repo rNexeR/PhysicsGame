@@ -1,6 +1,6 @@
 #include "Entidad.h"
 
-Entidad::Entidad() : Entidad(new Box(0,0,0,0),1,"")
+Entidad::Entidad() : Entidad(new Box(0,0,0,0,1),1,"")
 {
 
 }
@@ -19,57 +19,39 @@ Entidad::~Entidad()
 
 //Detecta si el objeto está colisionando o no
 bool Entidad::colision(Box* hitBox, Box* pCaja){
-    if(pCaja->x + pCaja->width < hitBox->x
-        || pCaja->x-5 > hitBox->x-5 + hitBox->width-5
-        || pCaja->y-5 + pCaja->height-5 < hitBox->y-5
-        || pCaja->y-5 > hitBox->y-5 + hitBox->height-5)
+
+    cout<<"hitBox-x: "<<hitBox->x<<"hitBox-y: "<<hitBox->y<<endl;
+    cout<<"pCaja-x: "<<pCaja->x<<"pCaja-y: "<<pCaja->y<<endl;
+    if(((pCaja->x + pCaja->width*pCaja->scale) < hitBox->x - hitBox->width*hitBox->scale/2 + 5)
+    || ((hitBox->x + hitBox->width*hitBox->scale) < pCaja->x - pCaja->width*pCaja->scale/2 + 5)
+    || ((pCaja->y + pCaja->height*pCaja->scale) < hitBox->y)
+    || ((hitBox->y + hitBox->height*hitBox->scale) < pCaja->y))
+    {
         return false;
-    else
-        return true;
+    }
+    return true;
+
+//    if(pCaja->x + pCaja->width < hitBox->x
+//        || pCaja->x-5 > hitBox->x-5 + hitBox->width-5
+//        || pCaja->y-5 + pCaja->height-5 < hitBox->y-5
+//        || pCaja->y-5 > hitBox->y-5 + hitBox->height-5)
+//        return false;
+//    else
+//        return true;
 }
 
-void Entidad::validarTeclas(ALLEGRO_EVENT* ev)
+string Entidad::intToString(int number)
 {
-    if(ev->type == ALLEGRO_EVENT_KEY_DOWN)
+    if (number == 0)
+        return "0";
+    std::string temp="";
+    std::string returnvalue="";
+    while (number>0)
     {
-        switch(ev->keyboard.keycode)
-        {
-        case ALLEGRO_KEY_W:
-            key[KEY_UP] = true;
-            break;
-
-        case ALLEGRO_KEY_S:
-            key[KEY_DOWN] = true;
-            break;
-
-        case ALLEGRO_KEY_A:
-            key[KEY_LEFT] = true;
-            break;
-
-        case ALLEGRO_KEY_D:
-            key[KEY_RIGHT] = true;
-            break;
-        }
+        temp+=number%10+48;
+        number/=10;
     }
-    if(ev->type == ALLEGRO_EVENT_KEY_UP)
-    {
-        switch(ev->keyboard.keycode)
-        {
-        case ALLEGRO_KEY_W:
-            key[KEY_UP] = false;
-            break;
-
-        case ALLEGRO_KEY_S:
-            key[KEY_DOWN] = false;
-            break;
-
-        case ALLEGRO_KEY_A:
-            key[KEY_LEFT] = false;
-            break;
-
-        case ALLEGRO_KEY_D:
-            key[KEY_RIGHT] = false;
-            break;
-        }
-    }
+    for (int i=0; i<(int)temp.length(); i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
 }

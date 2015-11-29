@@ -5,8 +5,8 @@
 class Box
 {
     public:
-        float x, y, height, width;
-        Box(float x, float y, float width, float height);
+        float x, y, height, width, scale;
+        Box(float x, float y, float width, float height, float scale);
         virtual ~Box();
     protected:
     private:
