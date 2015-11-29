@@ -22,6 +22,8 @@ ALLEGRO_EVENT ev;
 ALLEGRO_TIMEOUT timeout;
 ALLEGRO_TIMER *timer = NULL;
 
+ALLEGRO_BITMAP *bg1, *bg2;
+
 ALLEGRO_SAMPLE *game = NULL;
 ALLEGRO_SAMPLE_ID igame;
 
@@ -50,6 +52,7 @@ int main()
         }
         al_clear_to_color(al_map_rgb(0,200,0));
 
+        al_draw_bitmap(bg1, 0, 0, 0);
         for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
         {
             (*i)->act(&ev);
@@ -74,6 +77,7 @@ int main()
             entidades->erase(borrar[x]);
         }
         borrar.clear();
+        al_draw_bitmap(bg2, 0, 0, 0);
         al_flip_display();
     }
 
@@ -156,5 +160,8 @@ int initAllegro()
     al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
 
     al_init_timeout(&timeout, 0.06);
+
+    bg1 = al_load_bitmap("Assets/bg1.jpg");
+    bg2 = al_load_bitmap("Assets/bg2.png");
     return 0;
 }

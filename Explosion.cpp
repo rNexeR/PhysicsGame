@@ -30,7 +30,7 @@ void Explosion::act(ALLEGRO_EVENT* ev)
     if (frame%10 == 0)
         fActual++;
     if (fActual >= tFrames){
-        fActual = 0;
+        fActual = tFrames-1;
         destroied = true;
     }
 }

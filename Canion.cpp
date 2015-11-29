@@ -24,8 +24,8 @@ Canion::Canion(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades) : E
 
     xcenter = hitbox->width/2;
     ycenter = hitbox->height/2;
-    hitbox->x = 10 + (hitbox->width*hitbox->scale/2);
-    hitbox->y = HEIGHT - (hitbox->height*hitbox->scale /2);
+    hitbox->x = 30 + (hitbox->width*hitbox->scale/2);
+    hitbox->y = HEIGHT - (hitbox->height*hitbox->scale /2) - 15;
 
     hitbox2->x = hitbox->x;
     hitbox2->y = hitbox->y - hitbox->height*hitbox->scale + 250*hitbox2->scale;
