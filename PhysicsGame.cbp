@@ -34,14 +34,16 @@
 		</Compiler>
 		<Unit filename="Box.cpp" />
 		<Unit filename="Box.h" />
-		<Unit filename="Castel.cpp" />
-		<Unit filename="Castel.h" />
 		<Unit filename="Bullet.cpp" />
 		<Unit filename="Bullet.h" />
 		<Unit filename="Canion.cpp" />
 		<Unit filename="Canion.h" />
+		<Unit filename="Castle.cpp" />
+		<Unit filename="Castle.h" />
 		<Unit filename="Entidad.cpp" />
 		<Unit filename="Entidad.h" />
+		<Unit filename="Explosion.cpp" />
+		<Unit filename="Explosion.h" />
 		<Unit filename="Global.h" />
 		<Unit filename="Pendulo.cpp" />
 		<Unit filename="Pendulo.h" />
