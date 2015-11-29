@@ -14,6 +14,7 @@ class Pendulo : public Entidad
         double xcenterCuerda, ycenterCuerda, A,w,t,phi;
         float angle=0;
         int f=0,signo=1;
+        bool checked;
 
         void act(ALLEGRO_EVENT* ev);
         void draw();

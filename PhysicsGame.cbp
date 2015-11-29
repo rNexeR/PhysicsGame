@@ -42,6 +42,8 @@
 		<Unit filename="Castle.h" />
 		<Unit filename="Entidad.cpp" />
 		<Unit filename="Entidad.h" />
+		<Unit filename="Explosion.cpp" />
+		<Unit filename="Explosion.h" />
 		<Unit filename="Global.h" />
 		<Unit filename="Pendulo.cpp" />
 		<Unit filename="Pendulo.h" />
