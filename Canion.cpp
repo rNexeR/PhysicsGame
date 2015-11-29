@@ -123,7 +123,11 @@ void Canion::draw(){
     string mostrar = "velocity: " + intToString(velocity) + " m/s";
     al_draw_text(font, al_map_rgb(255,255,255), 0, 0, ALLEGRO_ALIGN_LEFT, mostrar.c_str());
     mostrar = "angle: " + intToString(angle*-1*180/PI) + " deg";
+    al_draw_text(font, al_map_rgb(255,255,255), 0, 20, ALLEGRO_ALIGN_LEFT, mostrar.c_str());
+    mostrar = "max bullets: " + intToString(this->bullet_max);
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 0, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
+    mostrar = "disponibles: " + intToString(this->bullet_max - this->bullet_count);
+    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 20, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
 
     //Dibujar el canon
     //cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
