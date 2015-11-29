@@ -58,7 +58,7 @@ void Canion::act(ALLEGRO_EVENT *ev){
         int ybullet = HEIGHT - (hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale));
         cout<<"YBULLET: "<<ybullet<<endl;
         entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, xbullet, ybullet));
-        entidades->push_back(new Explosion(50, 50));
+        entidades->push_back(new Explosion(xbullet, HEIGHT - ybullet));
     }
     if(angle < -PI/2)
         angle = -PI/2;
