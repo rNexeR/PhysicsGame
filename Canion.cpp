@@ -54,8 +54,9 @@ void Canion::act(ALLEGRO_EVENT *ev){
     if(key[KEY_LEFT] && velocity >= 2)
         velocity -= 0.05;
     if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_SPACE && this->bullet_count == 0){
-        int xbullet = xcenter + hitbox2->width/2*cos(angle)*hitbox2->scale;
-        int ybullet = HEIGHT - hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale);
+        int xbullet = hitbox2->x + hitbox2->width/2*cos(angle)*hitbox2->scale;
+        int ybullet = HEIGHT - (hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale));
+        cout<<"YBULLET: "<<ybullet<<endl;
         entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, xbullet, ybullet));
     }
     if(angle < -PI/2)
@@ -121,6 +122,7 @@ void Canion::draw(){
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 0, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
 
     //Dibujar el canon
+    //cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
     al_draw_scaled_rotated_bitmap(image[1], hitbox2->width/2, hitbox2->height/2, hitbox2->x, hitbox2->y,hitbox2->scale,hitbox2->scale, angle, 0);
 
     //Dibujar la rueda
