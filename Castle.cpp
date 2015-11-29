@@ -17,7 +17,7 @@ Castle::Castle() : Entidad()
     xcenter = hitbox->width/2;
     ycenter = hitbox->height/2;
     hitbox->x = WIDTH - (xcenter*hitbox->scale);
-    hitbox->y = HEIGHT - (ycenter*hitbox->scale);
+    hitbox->y = HEIGHT - (ycenter*hitbox->scale) - 15;
 
     cout<<"WIDTH: "<<WIDTH<<endl;
     cout<<"WIDTH castle: "<<hitbox->width<<endl;

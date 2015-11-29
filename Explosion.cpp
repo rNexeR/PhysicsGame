@@ -20,8 +20,21 @@ Explosion::Explosion(double xpos, double ypos) : Entidad()
     fActual = 0;
 }
 
+Explosion::Explosion(double xpos, double ypos, double scale) : Explosion(xpos, ypos)
+{
+    hitbox->scale = scale;
+    hitbox->x = xpos + 15;
+    hitbox->y = ypos;
+    //effect = al_load_sample("explosion.ogg");
+    //al_play_sample(effect, 0.7, 0.0, 3.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
+}
+
 Explosion::~Explosion()
 {
+    for (int x = 0; x < image.size(); x++)
+        al_destroy_bitmap(image[x]);
+    //al_destroy_sample(effect);
+    delete(hitbox);
 }
 
 void Explosion::act(ALLEGRO_EVENT* ev)
@@ -30,7 +43,7 @@ void Explosion::act(ALLEGRO_EVENT* ev)
     if (frame%10 == 0)
         fActual++;
     if (fActual >= tFrames){
-        fActual = 0;
+        fActual = tFrames-1;
         destroied = true;
     }
 }
