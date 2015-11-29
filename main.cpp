@@ -30,6 +30,7 @@ ALLEGRO_SAMPLE_ID igame, ieffect;
 
 int initAllegro();
 bool checkCollicion(Castle *castle,Entidad*bullet);
+bool checkCollicion(Entidad *e1,Box*b);
 int Entidad::bullet_count = 0;
 int Entidad::bullet_max = 4;
 int Entidad::bullet_actual = 0;
@@ -42,8 +43,9 @@ int main()
     Castle *castle = new Castle();
     Pendulo *pendulo = new Pendulo();
     list<Entidad*> *entidades = new list<Entidad*>();
+    Canion *canion = new Canion(event_queue, entidades);
     vector<list<Entidad*>::iterator>borrar;
-    entidades->push_back(new Canion(event_queue, entidades));
+    entidades->push_back(canion);
     entidades->push_back(castle);
     entidades->push_back(pendulo);
 
@@ -62,6 +64,16 @@ int main()
         {
             (*i)->act(&ev);
             (*i)->draw();
+
+            if(pendulo->checked==false && (*i)->tipoObjeto=="Bullet")//pendulo->checked==false &&
+            {
+//                if(checkCollicion((*i),pendulo->hitboxCuerda))
+                if(hitboxCollision((*i)->hitbox->x, (*i)->hitbox->y, (*i)->hitbox->width*(*i)->hitbox->scale, (*i)->hitbox->height*(*i)->hitbox->scale,0,pendulo->hitboxCuerda->x,pendulo->hitboxCuerda->y, pendulo->hitboxCuerda->width*pendulo->hitboxCuerda->scale, pendulo->hitboxCuerda->height*pendulo->hitboxCuerda->scale,-pendulo->angle*180/PI))
+                {
+                    pendulo->checked=true;
+                    entidades->push_back(new Bullet(canion->event_queue, canion->entidades, 0,pendulo->A*pendulo->w*sin(pendulo->w*pendulo->t - pendulo->phi), pendulo->hitbox->x,HEIGHT - pendulo->hitbox->y));//((Bullet*)(*i))->velocity + GRAVITY*pendulo->t
+                }
+            }
 
             //if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Pendulo" && (*i)->tipoObjeto!="Explosion")
             if((*i)->tipoObjeto=="Bullet")
@@ -99,6 +111,15 @@ int main()
     //al_stop_sample(&igame);
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
+}
+
+bool checkCollicion(Entidad *e1,Box*b)
+{
+    if(e1->colision(e1->hitbox,b))
+    {
+        return true;
+    }
+    return false;
 }
 
 bool checkCollicion(Castle *castle,Entidad*bullet)
