@@ -2,6 +2,7 @@
 #define BULLET_H
 #include "Entidad.h"
 #include "Explosion.h"
+#include <ctime>
 
 
 class Bullet : public Entidad
@@ -17,6 +18,7 @@ class Bullet : public Entidad
         void init(float xposition, float yposition, float velocity, float angle);
         void act(ALLEGRO_EVENT *ev);
         void draw();
+        void createPythonFile();
     protected:
     private:
 };
