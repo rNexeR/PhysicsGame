@@ -64,7 +64,7 @@ int main()
                 }
             }
 
-            if((*i)->hitbox->x > WIDTH || (*i)->hitbox->y > HEIGHT)
+            if((*i)->hitbox->x > WIDTH || (*i)->hitbox->y > HEIGHT || ( (*i)->tipoObjeto == "Explosion" ) && (((Explosion*)(*i))->destroied))
                 borrar.push_back(i);
 
         }
