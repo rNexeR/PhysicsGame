@@ -56,13 +56,12 @@ void Canion::act(ALLEGRO_EVENT *ev){
         velocity += 0.05;
     if(key[KEY_LEFT] && velocity >= 2)
         velocity -= 0.05;
-    if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_SPACE && this->bullet_count == 0){
+    if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_SPACE && this->bullet_actual == 0 && this->bullet_count < this->bullet_max){
         int xbullet = hitbox2->x + hitbox2->width/2*cos(angle)*hitbox2->scale;
         int ybullet = HEIGHT - (hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale));
-        cout<<"YBULLET: "<<ybullet<<endl;
         entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, xbullet, ybullet));
         entidades->push_back(new Explosion(xbullet, HEIGHT - ybullet));
-        al_play_sample(shoot, 0.7, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &ishoot);
+        al_play_sample(shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &ishoot);
     }
     if(angle < -PI/2)
         angle = -PI/2;
