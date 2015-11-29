@@ -24,7 +24,7 @@ Bullet::Bullet(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades, flo
     hitbox->height = al_get_bitmap_height(image);
     xcenter = hitbox->width/2;
     ycenter = hitbox->height/2;
-    hitbox->scale = 0.05;
+    hitbox->scale = 0.035;
     hitbox->x = 0;
     hitbox->y = HEIGHT - (hitbox->height * hitbox->scale /2);
     this->bullet_count++;

@@ -18,12 +18,17 @@ Canion::Canion(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades) : E
     hitbox2->scale = 0.1;
     hitbox->width = al_get_bitmap_width(image[0]);
     hitbox->height = al_get_bitmap_height(image[0]);
+
     hitbox2->width = al_get_bitmap_width(image[1]);
     hitbox2->height = al_get_bitmap_height(image[1]);
+
     xcenter = hitbox->width/2;
     ycenter = hitbox->height/2;
     hitbox->x = 10 + (hitbox->width*hitbox->scale/2);
     hitbox->y = HEIGHT - (hitbox->height*hitbox->scale /2);
+
+    hitbox2->x = hitbox->x;
+    hitbox2->y = hitbox->y - hitbox->height*hitbox->scale + 250*hitbox2->scale;
 
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
@@ -48,8 +53,11 @@ void Canion::act(ALLEGRO_EVENT *ev){
         velocity += 0.05;
     if(key[KEY_LEFT] && velocity >= 2)
         velocity -= 0.05;
-    if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_SPACE && this->bullet_count == 0)
-        entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, 0, 0));
+    if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_SPACE && this->bullet_count == 0){
+        int xbullet = xcenter + hitbox2->width/2*cos(angle)*hitbox2->scale;
+        int ybullet = HEIGHT - hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale);
+        entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, xbullet, ybullet));
+    }
     if(angle < -PI/2)
         angle = -PI/2;
     if(angle > 0)
@@ -113,9 +121,7 @@ void Canion::draw(){
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 0, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
 
     //Dibujar el canon
-    int xpos = hitbox->x;
-    int ypos = hitbox->y - hitbox->height*hitbox->scale;
-    al_draw_scaled_rotated_bitmap(image[1], hitbox2->width/2, hitbox2->height/2, xpos, ypos+200*hitbox2->scale,hitbox2->scale,hitbox2->scale, angle, 0);
+    al_draw_scaled_rotated_bitmap(image[1], hitbox2->width/2, hitbox2->height/2, hitbox2->x, hitbox2->y,hitbox2->scale,hitbox2->scale, angle, 0);
 
     //Dibujar la rueda
     al_draw_scaled_rotated_bitmap(image[0], xcenter, ycenter, hitbox->x, hitbox->y,hitbox->scale,hitbox->scale, 0, 0);

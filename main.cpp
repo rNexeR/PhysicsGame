@@ -38,7 +38,7 @@ int main()
 
     while(true)
     {
-        al_play_sample(game, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
+        //al_play_sample(game, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
@@ -64,7 +64,7 @@ int main()
     }
 
 
-    al_stop_sample(&igame);
+    //al_stop_sample(&igame);
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
 }
@@ -122,7 +122,7 @@ int initAllegro()
         cout<<"failed to initialize Audio!"<<endl;
     }
 
-    game = al_load_sample("FiveHoursOriginalMixtonoku.wav");
+    //game = al_load_sample("FiveHoursOriginalMixtonoku.ogg");
 
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
