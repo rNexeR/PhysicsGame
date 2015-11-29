@@ -1,6 +1,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 #include "Entidad.h"
+#include "Explosion.h"
 
 
 class Bullet : public Entidad

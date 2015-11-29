@@ -22,6 +22,8 @@ class Canion : public Entidad
         bool key[4] = { false, false, false, false};
         double angle;
         ALLEGRO_FONT *font;
+        ALLEGRO_SAMPLE *shoot = NULL;
+        ALLEGRO_SAMPLE_ID ishoot;
 
         virtual ~Canion();
         void act(ALLEGRO_EVENT *ev);
