@@ -60,7 +60,7 @@ int main()
                 if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
                 {
                     ((Bullet*)(*i))->checked=true;
-                    ((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity,0.1);
+                    ((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
 //                   ((Bullet*)(*i))->vo = -0.5;
 //                   ((Bullet*)(*i))->vo = -0.5;//-(((Bullet*)(*i))->vox);
 //                    borrar.push_back(i);
