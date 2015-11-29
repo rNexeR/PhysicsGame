@@ -6,6 +6,7 @@ Castle::Castle() : Entidad()
     tipoObjeto = "Castle";
     image.push_back(al_load_bitmap("Assets/Castle 1.png"));
     image.push_back(al_load_bitmap("Assets/Castle 2.png"));
+    image.push_back(al_load_bitmap("Assets/Castle 3.png"));
     image.push_back(al_load_bitmap("Assets/Castle 4.png"));
     image.push_back(al_load_bitmap("Assets/Castle 5.png"));
     image.push_back(al_load_bitmap("Assets/Castle 6.png"));
