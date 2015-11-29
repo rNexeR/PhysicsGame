@@ -24,8 +24,8 @@ ALLEGRO_TIMER *timer = NULL;
 
 ALLEGRO_BITMAP *bg1, *bg2;
 
-ALLEGRO_SAMPLE *game = NULL;
-ALLEGRO_SAMPLE_ID igame;
+ALLEGRO_SAMPLE *game = NULL, *effect = NULL;
+ALLEGRO_SAMPLE_ID igame, ieffect;
 
 int initAllegro();
 bool checkCollicion(Castle *castle,Entidad*bullet);
@@ -44,7 +44,7 @@ int main()
 
     while(true)
     {
-        //al_play_sample(game, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
+        //al_play_sample(game, 0.7, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
@@ -65,6 +65,7 @@ int main()
                     //((Bullet*)(*i))->checked=true;
                     //((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
                     entidades->push_back(new Explosion((*i)->hitbox->x, (*i)->hitbox->y, 1));
+                    al_play_sample(effect, 0.7, 0.0, 4.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
                     borrar.push_back(i);
                 }
             }
@@ -87,7 +88,8 @@ int main()
     al_destroy_bitmap(bg2);
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
-    //al_destroy_sample(game);
+    al_destroy_sample(game);
+    al_destroy_sample(effect);
     //al_stop_sample(&igame);
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
@@ -151,12 +153,13 @@ int initAllegro()
         cout<<"failed to initialize Audio!"<<endl;
     }
 
-    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(2))
+    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(5))
     {
         cout<<"failed to initialize Audio!"<<endl;
     }
 
-    //game = al_load_sample("FiveHoursOriginalMixtonoku.ogg");
+    game = al_load_sample("Szymon Matuszewski - Space Chase.ogg");
+    effect = al_load_sample("explosion.ogg");
 
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon

@@ -2,6 +2,7 @@
 
 Canion::Canion(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades) : Entidad()
 {
+    shoot = al_load_sample("canion.ogg");
     this->event_queue = event_queue;
     this->entidades = entidades;
     velocity = 80;
@@ -34,12 +35,14 @@ Canion::Canion(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades) : E
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
     font = al_load_ttf_font("kenvector_future_thin.ttf",20,0 );
+
 }
 
 Canion::~Canion()
 {
     al_destroy_bitmap(image[0]);
     al_destroy_bitmap(image[1]);
+    al_destroy_sample(shoot);
     delete(hitbox);
 }
 
@@ -59,6 +62,7 @@ void Canion::act(ALLEGRO_EVENT *ev){
         cout<<"YBULLET: "<<ybullet<<endl;
         entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, xbullet, ybullet));
         entidades->push_back(new Explosion(xbullet, HEIGHT - ybullet));
+        al_play_sample(shoot, 0.7, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &ishoot);
     }
     if(angle < -PI/2)
         angle = -PI/2;

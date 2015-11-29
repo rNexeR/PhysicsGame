@@ -10,6 +10,8 @@ class Explosion : public Entidad
         int time=0;
         bool destroied;
         vector<ALLEGRO_BITMAP *> image;
+        ALLEGRO_SAMPLE *effect = NULL;
+        ALLEGRO_SAMPLE_ID ieffect;
 
         void act(ALLEGRO_EVENT* ev);
         void draw();
