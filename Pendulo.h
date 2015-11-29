@@ -10,7 +10,8 @@ class Pendulo : public Entidad
         virtual ~Pendulo();
 
         ALLEGRO_BITMAP *ball,*thread;
-        vector<ALLEGRO_BITMAP *> image;
+        Box *hitboxCuerda;
+        float xcenterCuerda, ycenterCuerda;
 
         void act(ALLEGRO_EVENT* ev);
         void draw();
