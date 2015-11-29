@@ -99,6 +99,8 @@ int main()
     //al_stop_sample(&igame);
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
+
+
 }
 
 bool checkCollicion(Castle *castle,Entidad*bullet)

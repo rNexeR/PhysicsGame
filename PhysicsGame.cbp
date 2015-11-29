@@ -32,11 +32,23 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="BGI_util.h" />
-		<Unit filename="PlotData.h" />
-		<Unit filename="Plotstream.h" />
+		<Unit filename="Box.cpp" />
+		<Unit filename="Box.h" />
+		<Unit filename="Bullet.cpp" />
+		<Unit filename="Bullet.h" />
+		<Unit filename="Canion.cpp" />
+		<Unit filename="Canion.h" />
+		<Unit filename="Castle.cpp" />
+		<Unit filename="Castle.h" />
+		<Unit filename="Entidad.cpp" />
+		<Unit filename="Entidad.h" />
+		<Unit filename="Explosion.cpp" />
+		<Unit filename="Explosion.h" />
+		<Unit filename="Global.h" />
+		<Unit filename="Pendulo.cpp" />
+		<Unit filename="Pendulo.h" />
 		<Unit filename="koolplot.h" />
-		<Unit filename="winbgitypes.h" />
+		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
