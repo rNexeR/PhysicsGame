@@ -9,6 +9,7 @@ using namespace std;
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "Canion.h"
+#include "Pendulo.h"
 #include "Entidad.h"
 #include "Castle.h"
 
@@ -37,10 +38,12 @@ int main()
         return -1;
 
     Castle *castle = new Castle();
+    Pendulo *pendulo = new Pendulo();
     list<Entidad*> *entidades = new list<Entidad*>();
     vector<list<Entidad*>::iterator>borrar;
     entidades->push_back(new Canion(event_queue, entidades));
     entidades->push_back(castle);
+    entidades->push_back(pendulo);
 
     while(true)
     {
@@ -58,7 +61,7 @@ int main()
             (*i)->act(&ev);
             (*i)->draw();
 
-            if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Explosion")
+            if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Pendulo" && (*i)->tipoObjeto!="Explosion")
             {
                 if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
                 {
