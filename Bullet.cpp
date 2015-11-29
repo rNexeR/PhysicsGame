@@ -23,10 +23,12 @@ Bullet::Bullet(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades, flo
     hitbox->y = HEIGHT - (hitbox->height * hitbox->scale /2);
     this->bullet_count++;
     this->bullet_actual = 1;
+    createPythonFile();
 }
 
 Bullet::~Bullet()
 {
+
     cout<<"Distancia Final: "<<hitbox->x<<" m"<<endl;
     bullet_actual = 0;
     al_destroy_bitmap(image);
@@ -56,4 +58,17 @@ void Bullet::act(ALLEGRO_EVENT *ev){
 
 void Bullet::draw(){
     al_draw_scaled_rotated_bitmap(image, xcenter, ycenter, hitbox->x, hitbox->y,hitbox->scale,hitbox->scale, degree, 0);
+}
+
+void Bullet::createPythonFile(){
+    time_t now = time(0);
+    //string folder = currentDateTime();
+    string dir = "BulletLog/Bullet" + intToString(this->bullet_count) + ".txt";
+    ofstream file(dir.c_str(), ios::out);
+
+    file.write("from math import sin", sizeof("from math import sin"));
+    file.write("from numpy import array,arange", sizeof("from numpy import array,arange"));
+    //file.write("");
+    file.flush();
+    file.close();
 }

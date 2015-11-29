@@ -6,6 +6,7 @@
 #include "Bullet.h"
 #include "Explosion.h"
 #include <vector>
+#include <iostream>
 
 enum MYKEYS {
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT

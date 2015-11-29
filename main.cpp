@@ -111,6 +111,8 @@ int main()
     //al_stop_sample(&igame);
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
+
+
 }
 
 bool checkCollicion(Entidad *e1,Box*b)
