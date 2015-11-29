@@ -15,6 +15,7 @@ class Explosion : public Entidad
         void draw();
 
         Explosion(double xpos, double ypos);
+        Explosion(double xpos, double ypos, double scale);
         virtual ~Explosion();
     protected:
     private:

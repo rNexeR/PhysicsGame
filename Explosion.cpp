@@ -20,8 +20,18 @@ Explosion::Explosion(double xpos, double ypos) : Entidad()
     fActual = 0;
 }
 
+Explosion::Explosion(double xpos, double ypos, double scale) : Explosion(xpos, ypos)
+{
+    hitbox->scale = scale;
+    hitbox->x = xpos + 15;
+    hitbox->y = ypos;
+}
+
 Explosion::~Explosion()
 {
+    for (int x = 0; x < image.size(); x++)
+        al_destroy_bitmap(image[x]);
+    delete(hitbox);
 }
 
 void Explosion::act(ALLEGRO_EVENT* ev)

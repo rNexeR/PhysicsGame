@@ -62,8 +62,10 @@ int main()
             {
                 if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
                 {
-                    ((Bullet*)(*i))->checked=true;
-                    ((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
+                    //((Bullet*)(*i))->checked=true;
+                    //((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
+                    entidades->push_back(new Explosion((*i)->hitbox->x, (*i)->hitbox->y, 1));
+                    borrar.push_back(i);
                 }
             }
 
@@ -81,7 +83,11 @@ int main()
         al_flip_display();
     }
 
-
+    al_destroy_bitmap(bg1);
+    al_destroy_bitmap(bg2);
+    al_destroy_event_queue(event_queue);
+    al_destroy_timer(timer);
+    //al_destroy_sample(game);
     //al_stop_sample(&igame);
     cout<<"---- Fin del Programa ----"<<endl;
     return 0;
