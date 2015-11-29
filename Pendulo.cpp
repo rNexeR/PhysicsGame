@@ -8,7 +8,7 @@ Pendulo::Pendulo() : Entidad()
     thread = al_load_bitmap("Assets/varillametal.png");
 
     hitboxCuerda = new Box(0,0,0,0,0);
-    hitboxCuerda->scale = 0.7;
+    hitboxCuerda->scale = 0.5;
     hitboxCuerda->width = al_get_bitmap_width(thread);
     hitboxCuerda->height = al_get_bitmap_height(thread);
     xcenterCuerda = hitboxCuerda->width/2;
@@ -23,7 +23,7 @@ Pendulo::Pendulo() : Entidad()
     phi=PI/2;
     angle=PI/2;
 
-    hitbox->scale = 0.3;
+    hitbox->scale = 0.15;
     hitbox->width = al_get_bitmap_width(ball);
     hitbox->height = al_get_bitmap_height(ball);
     xcenter = hitbox->width/2;
