@@ -32,6 +32,8 @@ int initAllegro();
 bool checkCollicion(Castle *castle,Entidad*bullet);
 bool checkCollicion(Entidad *e1,Box*b);
 int Entidad::bullet_count = 0;
+int Entidad::bullet_max = 4;
+int Entidad::bullet_actual = 0;
 int main()
 {
 
@@ -47,9 +49,9 @@ int main()
     entidades->push_back(castle);
     entidades->push_back(pendulo);
 
+    al_play_sample(game, 0.7, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
     while(true)
     {
-        //al_play_sample(game, 0.7, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
@@ -73,14 +75,15 @@ int main()
                 }
             }
 
-            if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Pendulo" && (*i)->tipoObjeto!="Explosion")
+            //if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Pendulo" && (*i)->tipoObjeto!="Explosion")
+            if((*i)->tipoObjeto=="Bullet")
             {
                 if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
                 {
                     //((Bullet*)(*i))->checked=true;
                     //((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
                     entidades->push_back(new Explosion((*i)->hitbox->x, (*i)->hitbox->y, 1));
-                    al_play_sample(effect, 0.7, 0.0, 4.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
+                    al_play_sample(effect, 0.5, 0.0, 4.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
                     borrar.push_back(i);
                 }
             }
@@ -172,7 +175,7 @@ int initAllegro()
         cout<<"failed to initialize the keyboard!"<<endl;
     }
 
-    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(2))
+    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(5))
     {
         cout<<"failed to initialize Audio!"<<endl;
     }
