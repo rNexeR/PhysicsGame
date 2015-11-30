@@ -26,7 +26,14 @@ Castle::Castle() : Entidad()
 
 Castle::~Castle()
 {
-    //dtor
+    delete hitbox;
+    delete image[0];
+    delete image[1];
+    delete image[2];
+    delete image[3];
+    delete image[4];
+    delete image[5];
+    image.clear();
 }
 
 void Castle::act(ALLEGRO_EVENT* ev)

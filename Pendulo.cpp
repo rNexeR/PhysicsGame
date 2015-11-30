@@ -36,7 +36,10 @@ Pendulo::Pendulo() : Entidad()
 
 Pendulo::~Pendulo()
 {
-    //dtor
+    delete hitbox;
+    delete hitboxCuerda;
+    delete ball;
+    delete thread;
 }
 
 void Pendulo::act(ALLEGRO_EVENT* ev)
@@ -56,11 +59,13 @@ void Pendulo::act(ALLEGRO_EVENT* ev)
 
 void Pendulo::draw()
 {
-    al_draw_scaled_rotated_bitmap(thread, xcenterCuerda, ycenterCuerda, hitboxCuerda->x, hitboxCuerda->y,hitboxCuerda->scale,hitboxCuerda->scale,angle, 0);
+    if(!checked)
+    {
+        al_draw_scaled_rotated_bitmap(thread, xcenterCuerda, ycenterCuerda, hitboxCuerda->x, hitboxCuerda->y,hitboxCuerda->scale,hitboxCuerda->scale,angle, 0);
 
-    al_draw_scaled_rotated_bitmap(ball, xcenter, ycenter, hitbox->x, hitbox->y,hitbox->scale,hitbox->scale,angle, 0);
-
-    if(checked)
-        al_draw_filled_rectangle(hitboxCuerda->x,hitboxCuerda->y, hitboxCuerda->x + hitboxCuerda->width*hitboxCuerda->scale, hitboxCuerda->y + hitboxCuerda->height*hitboxCuerda->scale, al_map_rgb(0,250,0));
+        al_draw_scaled_rotated_bitmap(ball, xcenter, ycenter, hitbox->x, hitbox->y,hitbox->scale,hitbox->scale,angle, 0);
+    }
+//    if(checked)
+//        al_draw_filled_rectangle(hitboxCuerda->x,hitboxCuerda->y, hitboxCuerda->x + hitboxCuerda->width*hitboxCuerda->scale, hitboxCuerda->y + hitboxCuerda->height*hitboxCuerda->scale, al_map_rgb(0,250,0));
 //    al_draw_filled_rectangle(hitboxCuerda->x,hitboxCuerda->y, hitboxCuerda->width*hitboxCuerda->scale, hitboxCuerda->height*hitboxCuerda->scale, al_map_rgb(0,200,0));
 }
