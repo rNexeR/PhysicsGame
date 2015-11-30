@@ -8,6 +8,7 @@ Bullet::Bullet(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades, flo
     this->checked = false;
 
     cout<<"Angulo: "<<angle<<endl;
+    degree = 0;
 
     tipoObjeto = "Bullet";
 //    tiempo = 0;
@@ -28,7 +29,6 @@ Bullet::Bullet(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades, flo
 
 Bullet::~Bullet()
 {
-
     cout<<"Distancia Final: "<<hitbox->x<<" m"<<endl;
     bullet_actual = 0;
     al_destroy_bitmap(image);
@@ -50,7 +50,7 @@ void Bullet::init(float xposition, float yposition, float velocity, float angle)
 
 void Bullet::act(ALLEGRO_EVENT *ev){
     degree+=PI/6;
-    tiempo += 0.07;
+    tiempo += 0.1;
     hitbox->x = xo + vox*tiempo;
     hitbox->y = HEIGHT - (yo + voy*tiempo - (0.5*GRAVITY*tiempo*tiempo));
 }

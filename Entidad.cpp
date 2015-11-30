@@ -7,6 +7,7 @@ Entidad::Entidad() : Entidad(new Box(0,0,0,0,1),1,"")
 
 Entidad::Entidad(Box*b,float v,string t)
 {
+    readyToDelete = false;
     hitbox=b;
     velocity=v;
     tipoObjeto=t;
