@@ -33,10 +33,14 @@ int initAllegro();
 void initGame();
 bool checkCollicion(Castle *castle,Entidad*bullet);
 bool checkCollicion(Entidad *e1,Box*b);
+void reInitAllegro();
+void closeGame();
 
 int Entidad::bullet_count = 0;
-    int Entidad::bullet_max = 4;
-    int Entidad::bullet_actual = 0;
+int Entidad::bullet_max = 4;
+int Entidad::bullet_actual = 0;
+list<Entidad*> *entidades = new list<Entidad*>();
+vector<list<Entidad*>::iterator>borrar;
 
 void showSplash(){
     int red = 0;
@@ -82,14 +86,15 @@ int main()
 }
 
 void initGame(){
+    ev = ALLEGRO_EVENT();
+    reInitAllegro();
+
     Entidad::bullet_count = 0;
     Entidad::bullet_max = 4;
     Entidad::bullet_actual = 0;
-    Castle *castle = new Castle();
-    Pendulo *pendulo = new Pendulo();
-    list<Entidad*> *entidades = new list<Entidad*>();
-    Canion *canion = new Canion(event_queue, entidades);
-    vector<list<Entidad*>::iterator>borrar;
+    Castle* castle = new Castle();
+    Pendulo* pendulo = new Pendulo();
+    Canion* canion = new Canion(event_queue, entidades);
     entidades->push_back(canion);
     entidades->push_back(castle);
     entidades->push_back(pendulo);
@@ -100,7 +105,7 @@ void initGame(){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
-            exit(0);
+            closeGame();
         }
         al_clear_to_color(al_map_rgb(0,200,0));
 
@@ -171,10 +176,34 @@ void initGame(){
         al_flip_display();
     }
 
-    delete(castle);
-    delete(pendulo);
-    delete(canion);
+    for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
+                borrar.push_back(i);
+    for(int x = 0; x < borrar.size(); x++){
+        entidades->erase(borrar[x]);
+        delete((*borrar[x]));
+    }
+    entidades->clear();
+    borrar.clear();
     al_stop_sample(&igame);
+}
+
+void closeGame(){
+    for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
+        borrar.push_back(i);
+    for(int x = 0; x < borrar.size(); x++){
+        delete((*borrar[x]));
+    }
+    entidades->clear();
+    borrar.clear();
+    al_destroy_bitmap(bg1);
+    al_destroy_bitmap(bg2);
+    al_destroy_bitmap(logo);
+    al_destroy_event_queue(event_queue);
+    al_destroy_timer(timer);
+    al_destroy_sample(game);
+    al_destroy_sample(effect);
+    delete(entidades);
+    exit(0);
 }
 
 bool checkCollicion(Entidad *e1,Box*b)
@@ -194,6 +223,19 @@ bool checkCollicion(Castle *castle,Entidad*bullet)
         return true;
     }
     return false;
+}
+
+void reInitAllegro(){
+    event_queue = al_create_event_queue();
+    if(!event_queue)
+    {
+        cout<<"failed to create event_queue!\n"<<endl;
+        al_destroy_display(display);
+    }
+
+    al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
 }
 
 /**
