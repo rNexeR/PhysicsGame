@@ -39,7 +39,6 @@ void Bullet::init(float xposition, float yposition, float velocity, float angle)
 {
     tiempo = 0;
 
-//    this->entidades = entidades;
     this->velocity = velocity;
     this->angle = angle;
 
