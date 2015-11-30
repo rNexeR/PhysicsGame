@@ -62,6 +62,7 @@ void Canion::act(ALLEGRO_EVENT *ev){
         entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, xbullet, ybullet));
         entidades->push_back(new Explosion(xbullet, HEIGHT - ybullet));
         al_play_sample(shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &ishoot);
+        this->bullet_count++;
     }
     if(angle < -PI/2)
         angle = -PI/2;
