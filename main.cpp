@@ -103,7 +103,7 @@ int main()
             string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
             cout<<castle->frame<<image<<endl;
             ALLEGRO_BITMAP *result = al_load_bitmap(image.c_str());
-            if(ev.type == ALLEGRO_EVENT_KEY_DOWN && ev.keyboard.keycode == ALLEGRO_KEY_SPACE)
+            if(ev.type == ALLEGRO_EVENT_KEY_DOWN && ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
                 break;
             int w = al_get_bitmap_width(result);
             int h = al_get_bitmap_height(result);
