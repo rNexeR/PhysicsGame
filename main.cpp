@@ -22,6 +22,7 @@ ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 ALLEGRO_EVENT ev;
 ALLEGRO_TIMEOUT timeout;
 ALLEGRO_TIMER *timer = NULL;
+ALLEGRO_FONT *font;
 
 ALLEGRO_BITMAP *bg1, *bg2;
 
@@ -29,17 +30,40 @@ ALLEGRO_SAMPLE *game = NULL, *effect = NULL;
 ALLEGRO_SAMPLE_ID igame, ieffect;
 
 int initAllegro();
+void initGame();
 bool checkCollicion(Castle *castle,Entidad*bullet);
 bool checkCollicion(Entidad *e1,Box*b);
+
 int Entidad::bullet_count = 0;
-int Entidad::bullet_max = 4;
-int Entidad::bullet_actual = 0;
+    int Entidad::bullet_max = 4;
+    int Entidad::bullet_actual = 0;
+
 int main()
 {
 
     if(initAllegro() != 0)
         return -1;
+    while(true){
+        initGame();
+    }
+    al_destroy_bitmap(bg1);
+    al_destroy_bitmap(bg2);
+    al_destroy_event_queue(event_queue);
+    al_destroy_timer(timer);
+    al_destroy_sample(game);
+    al_destroy_sample(effect);
 
+    cout<<"---- Fin del Programa ----"<<endl;
+
+    return 0;
+
+
+}
+
+void initGame(){
+    Entidad::bullet_count = 0;
+    Entidad::bullet_max = 4;
+    Entidad::bullet_actual = 0;
     Castle *castle = new Castle();
     Pendulo *pendulo = new Pendulo();
     list<Entidad*> *entidades = new list<Entidad*>();
@@ -55,7 +79,7 @@ int main()
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
-            break;
+            exit(0);
         }
         al_clear_to_color(al_map_rgb(0,200,0));
 
@@ -104,6 +128,13 @@ int main()
         }
         borrar.clear();
 
+        al_draw_line(0, HEIGHT - 5, WIDTH, HEIGHT -5, al_map_rgb(255,255,255), 0);
+        al_draw_text(font, al_map_rgb(255,255,255), 0, HEIGHT - 20, ALLEGRO_ALIGN_LEFT, "0 m");
+        al_draw_text(font, al_map_rgb(255,255,255), WIDTH/2, HEIGHT - 20, ALLEGRO_ALIGN_CENTRE, "500 m");
+        al_draw_text(font, al_map_rgb(255,255,255), WIDTH/2 - WIDTH/4, HEIGHT - 20, ALLEGRO_ALIGN_CENTRE, "250 m");
+        al_draw_text(font, al_map_rgb(255,255,255), WIDTH/2 + WIDTH/4, HEIGHT - 20, ALLEGRO_ALIGN_CENTRE, "750 m");
+        al_draw_text(font, al_map_rgb(255,255,255), WIDTH, HEIGHT - 20, ALLEGRO_ALIGN_RIGHT, "1000 m");
+
         if(Entidad::bullet_count == Entidad::bullet_max && Entidad::bullet_actual == 0){
             string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
             cout<<castle->frame<<image<<endl;
@@ -112,24 +143,17 @@ int main()
             int h = al_get_bitmap_height(result);
             al_draw_scaled_rotated_bitmap(result, w/2, h/2, WIDTH/2, HEIGHT/2, 1, 1, 0,0);
             al_flip_display();
-            al_rest(3);
+            al_rest(5);
             al_destroy_bitmap(result);
             break;
         }
         al_flip_display();
     }
 
-    al_destroy_bitmap(bg1);
-    al_destroy_bitmap(bg2);
-    al_destroy_event_queue(event_queue);
-    al_destroy_timer(timer);
-    al_destroy_sample(game);
-    al_destroy_sample(effect);
-    //al_stop_sample(&igame);
-    cout<<"---- Fin del Programa ----"<<endl;
-    return 0;
-
-
+    delete(castle);
+    delete(pendulo);
+    delete(canion);
+    al_stop_sample(&igame);
 }
 
 bool checkCollicion(Entidad *e1,Box*b)
@@ -209,6 +233,8 @@ int initAllegro()
 
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+
+    font = al_load_ttf_font("kenvector_future_thin.ttf",10,0 );
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
