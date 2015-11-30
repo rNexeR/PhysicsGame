@@ -127,7 +127,7 @@ void Canion::draw(){
     al_draw_text(font, al_map_rgb(255,255,255), 0, 20, ALLEGRO_ALIGN_LEFT, mostrar.c_str());
     mostrar = "max bullets: " + intToString(this->bullet_max);
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 0, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
-    mostrar = "disponibles: " + intToString(this->bullet_max - this->bullet_count);
+    mostrar = "available: " + intToString(this->bullet_max - this->bullet_count);
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 20, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
 
     int xbullet = hitbox2->x + hitbox2->width/2*cos(angle)*hitbox2->scale;
