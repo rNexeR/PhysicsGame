@@ -72,7 +72,7 @@ int main()
                 if(hitboxCollision((*i)->hitbox->x, (*i)->hitbox->y, (*i)->hitbox->width*(*i)->hitbox->scale, (*i)->hitbox->height*(*i)->hitbox->scale,0,pendulo->hitboxCuerda->x,pendulo->hitboxCuerda->y, pendulo->hitboxCuerda->width*pendulo->hitboxCuerda->scale, pendulo->hitboxCuerda->height*pendulo->hitboxCuerda->scale,-pendulo->angle*180/PI))
                 {
                     pendulo->checked=true;
-                    entidades->push_back(new Bullet(canion->event_queue, canion->entidades, 0,-pendulo->A*pendulo->w*sin(pendulo->w*pendulo->t - pendulo->phi), pendulo->hitbox->x,HEIGHT - pendulo->hitbox->y));//((Bullet*)(*i))->velocity + GRAVITY*pendulo->t
+                    entidades->push_back(new Bullet(canion->event_queue, canion->entidades, 0,pendulo->A*pendulo->w*sin(pendulo->w*pendulo->t - pendulo->phi), pendulo->hitbox->x,HEIGHT - pendulo->hitbox->y));//((Bullet*)(*i))->velocity + GRAVITY*pendulo->t
                 }
             }
 
