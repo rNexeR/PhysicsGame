@@ -6,7 +6,7 @@ Canion::Canion(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades) : E
     this->event_queue = event_queue;
     this->entidades = entidades;
     velocity = 80;
-    angle = 0;
+    angle = 44;
     tipoObjeto = "Canion";
 
     //Aqui va mas programacion :D
@@ -136,8 +136,8 @@ void Canion::draw(){
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 40, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
     mostrar = "Yo bullet: " + intToString(ybullet) + " m";
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 60, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
-    //Dibujar el canon
-    //cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
+//    Dibujar el canon
+    cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
     al_draw_scaled_rotated_bitmap(image[1], hitbox2->width/2, hitbox2->height/2, hitbox2->x, hitbox2->y,hitbox2->scale,hitbox2->scale, angle, 0);
 
     //Dibujar la rueda
