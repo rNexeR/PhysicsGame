@@ -76,7 +76,7 @@ int main()
                 }
             }
 
-            //if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Pendulo" && (*i)->tipoObjeto!="Explosion")
+            if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Pendulo" && (*i)->tipoObjeto!="Explosion")
             if((*i)->tipoObjeto=="Bullet")
             {
                 if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
@@ -85,18 +85,22 @@ int main()
                     //((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
                     entidades->push_back(new Explosion((*i)->hitbox->x, (*i)->hitbox->y, 1));
                     al_play_sample(effect, 0.5, 0.0, 4.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
-                    borrar.push_back(i);
+                    (*i)->readyToDelete = true;
                 }
             }
 
             if((*i)->hitbox->x > WIDTH || (*i)->hitbox->y > HEIGHT || ( (*i)->tipoObjeto == "Explosion" ) && (((Explosion*)(*i))->destroied))
-                borrar.push_back(i);
+                (*i)->readyToDelete = true;
 
         }
         al_draw_bitmap(bg2, 0, 0, 0);
+
+        for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
+            if((*i)->readyToDelete)
+                borrar.push_back(i);
         for(int x = 0; x < borrar.size(); x++){
-            delete((*borrar[x]));
             entidades->erase(borrar[x]);
+            delete((*borrar[x]));
         }
         borrar.clear();
 
@@ -212,7 +216,7 @@ int initAllegro()
 
     al_init_timeout(&timeout, 0.06);
 
-    bg1 = al_load_bitmap("Assets/bg1.jpg");
+    bg1 = al_load_bitmap("Assets/bg1.png");
     bg2 = al_load_bitmap("Assets/bg2.png");
     return 0;
 }

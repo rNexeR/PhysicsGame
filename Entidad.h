@@ -26,7 +26,7 @@ class Entidad
     public:
         //Atributos
         static int bullet_count, bullet_max, bullet_actual;
-        bool colisionado;
+        bool readyToDelete;
         Box *hitbox;// = new Box(0,0,0,0); //donde estará y de donde se comprueban las colisiones
         float velocity;// = 1; //cuanto se mueve
         string tipoObjeto;// = ""; //muestra que objeto es: obstacle, disparo, enemy, etc.
