@@ -124,19 +124,19 @@ void Canion::draw(){
     al_draw_text(font, al_map_rgb(255,255,255), 0, 0, ALLEGRO_ALIGN_LEFT, mostrar.c_str());
     mostrar = "angle: " + intToString(angle*-1*180/PI) + " deg";
     al_draw_text(font, al_map_rgb(255,255,255), 0, 20, ALLEGRO_ALIGN_LEFT, mostrar.c_str());
-//    mostrar = "max bullets: " + intToString(this->bullet_max);
-//    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 0, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
-//    mostrar = "disponibles: " + intToString(this->bullet_max - this->bullet_count);
-//    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 20, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
-//
-//    int xbullet = hitbox2->x + hitbox2->width/2*cos(angle)*hitbox2->scale;
-//    int ybullet = HEIGHT - (hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale));
-//    mostrar = "Xo bullet: " + intToString(xbullet) + " m";
-//    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 40, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
-//    mostrar = "Yo bullet: " + intToString(ybullet) + " m";
-//    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 60, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
-    //Dibujar el canon
-    //cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
+    mostrar = "max bullets: " + intToString(this->bullet_max);
+    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 0, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
+    mostrar = "disponibles: " + intToString(this->bullet_max - this->bullet_count);
+    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 20, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
+
+    int xbullet = hitbox2->x + hitbox2->width/2*cos(angle)*hitbox2->scale;
+    int ybullet = HEIGHT - (hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale));
+    mostrar = "Xo bullet: " + intToString(xbullet) + " m";
+    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 40, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
+    mostrar = "Yo bullet: " + intToString(ybullet) + " m";
+    al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 60, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
+//    Dibujar el canon
+    cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
     al_draw_scaled_rotated_bitmap(image[1], hitbox2->width/2, hitbox2->height/2, hitbox2->x, hitbox2->y,hitbox2->scale,hitbox2->scale, angle, 0);
 
     //Dibujar la rueda
