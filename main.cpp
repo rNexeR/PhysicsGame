@@ -98,6 +98,17 @@ int main()
             entidades->erase(borrar[x]);
         }
         borrar.clear();
+
+        if(Entidad::bullet_count == Entidad::bullet_max && Entidad::bullet_actual == 0){
+            string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
+            cout<<castle->frame<<image<<endl;
+            ALLEGRO_BITMAP *result = al_load_bitmap(image.c_str());
+            if(ev.type == ALLEGRO_EVENT_KEY_DOWN && ev.keyboard.keycode == ALLEGRO_KEY_SPACE)
+                break;
+            int w = al_get_bitmap_width(result);
+            int h = al_get_bitmap_height(result);
+            al_draw_scaled_rotated_bitmap(result, w/2, h/2, WIDTH/2, HEIGHT/2, 1, 1, 0,0);
+        }
         al_flip_display();
     }
 
