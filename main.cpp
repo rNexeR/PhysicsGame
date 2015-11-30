@@ -92,13 +92,12 @@ int main()
                 borrar.push_back(i);
 
         }
-
+        al_draw_bitmap(bg2, 0, 0, 0);
         for(int x = 0; x < borrar.size(); x++){
             delete((*borrar[x]));
             entidades->erase(borrar[x]);
         }
         borrar.clear();
-        al_draw_bitmap(bg2, 0, 0, 0);
         al_flip_display();
     }
 
