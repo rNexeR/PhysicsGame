@@ -11,7 +11,7 @@ Bullet::Bullet(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades, flo
     degree = 0;
 
     tipoObjeto = "Bullet";
-//    tiempo = 0;
+    tiempo = 0;
 
     //Aqui va mas programacion :D
     this->entidades = entidades;
@@ -37,7 +37,7 @@ Bullet::~Bullet()
 
 void Bullet::init(float xposition, float yposition, float velocity, float angle)
 {
-    tiempo = 0;
+//    tiempo = 0;
 
     this->velocity = velocity;
     this->angle = angle;

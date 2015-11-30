@@ -4,11 +4,14 @@ Pendulo::Pendulo() : Entidad()
 {
     tipoObjeto = "Pendulo";
     checked=false;
+    f=0;
+    angle=0;
+    signo=1;
 
     ball = al_load_bitmap("Assets/EsferaM.png");
     thread = al_load_bitmap("Assets/varillametal.png");
 
-    hitboxCuerda = new Box(0,0,0,0,0);
+    hitboxCuerda = new Box(0,0,0,0,1);
     hitboxCuerda->scale = 0.5;
     hitboxCuerda->width = al_get_bitmap_width(thread);
     hitboxCuerda->height = al_get_bitmap_height(thread);
