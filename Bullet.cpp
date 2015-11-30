@@ -22,7 +22,7 @@ Bullet::Bullet(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades, flo
     hitbox->scale = 0.035;
     hitbox->x = 0;
     hitbox->y = HEIGHT - (hitbox->height * hitbox->scale /2);
-    this->bullet_count++;
+//    this->bullet_count++;
     this->bullet_actual = 1;
 }
 
