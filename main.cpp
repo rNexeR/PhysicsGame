@@ -24,7 +24,7 @@ ALLEGRO_TIMEOUT timeout;
 ALLEGRO_TIMER *timer = NULL;
 ALLEGRO_FONT *font;
 
-ALLEGRO_BITMAP *bg1, *bg2;
+ALLEGRO_BITMAP *bg1, *bg2, *logo;
 
 ALLEGRO_SAMPLE *game = NULL, *effect = NULL;
 ALLEGRO_SAMPLE_ID igame, ieffect;
@@ -38,12 +38,33 @@ int Entidad::bullet_count = 0;
     int Entidad::bullet_max = 4;
     int Entidad::bullet_actual = 0;
 
+void showSplash(){
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+    int step = 2;
+    for(int i = 0; i <= 100; i++){
+        blue+=step;
+        red+=step;
+        al_clear_to_color(al_map_rgb(red,green,blue));
+        int w = al_get_bitmap_width(logo);
+        int h = al_get_bitmap_height(logo);
+        al_draw_scaled_rotated_bitmap(logo, w/2, h/2, WIDTH/2, HEIGHT/2, 1, 1, 0,0);
+        al_draw_line(WIDTH/2 - w/2, HEIGHT/2 + h, WIDTH/2 - w/2 + (w*i/100), HEIGHT/2 + h, al_map_rgb(255,255,255), 5);
+        al_flip_display();
+
+        al_rest(0.05);
+    }
+}
+
 int main()
 {
 
     if(initAllegro() != 0)
         return -1;
+
     while(true){
+        showSplash();
         initGame();
     }
     al_destroy_bitmap(bg1);
@@ -244,5 +265,6 @@ int initAllegro()
 
     bg1 = al_load_bitmap("Assets/bg1.png");
     bg2 = al_load_bitmap("Assets/bg2.png");
+    logo = al_load_bitmap("logo.png");
     return 0;
 }
