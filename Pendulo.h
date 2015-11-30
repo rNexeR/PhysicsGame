@@ -12,8 +12,8 @@ class Pendulo : public Entidad
         ALLEGRO_BITMAP *ball,*thread;
         Box *hitboxCuerda;
         double xcenterCuerda, ycenterCuerda, A,w,t,phi;
-        float angle=0;
-        int f=0,signo=1;
+        float angle;
+        int f,signo;
         bool checked;
 
         void act(ALLEGRO_EVENT* ev);
