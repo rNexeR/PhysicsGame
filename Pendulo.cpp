@@ -49,12 +49,14 @@ void Pendulo::act(ALLEGRO_EVENT* ev)
 {
     f++;
     t+=0.07;
-    angle -= signo*PI/180;
-
+//    angle -= signo*PI/180;
+    angle = atan2((-hitbox->y),(WIDTH/2 - (hitbox->x + hitbox->width*hitbox->scale/2 + signo*hitboxCuerda->width*hitboxCuerda->scale/8))) + PI/2;
     hitbox->x = hitboxCuerda->x + 2*A*sin((w*t - phi));
     hitbox->y = signo*2*A*cos((w*t - phi));
 
-    if(f%180==0)
+//    angle = 4*atan((WIDTH/2 - hitbox->x)/(HEIGHT - hitbox->y));
+
+    if(hitbox->y<0)//(f%180==0)
     {
         signo*=-1;
     }

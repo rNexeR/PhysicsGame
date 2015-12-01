@@ -95,6 +95,7 @@ void initGame(){
     Castle* castle = new Castle();
     Pendulo* pendulo = new Pendulo();
     Canion* canion = new Canion(event_queue, entidades);
+    Bullet *extraBall=NULL;
     entidades->push_back(canion);
     entidades->push_back(castle);
     entidades->push_back(pendulo);
@@ -122,7 +123,8 @@ void initGame(){
                 if(hitboxCollision((*i)->hitbox->x, (*i)->hitbox->y, (*i)->hitbox->width*(*i)->hitbox->scale, (*i)->hitbox->height*(*i)->hitbox->scale,0,pendulo->hitboxCuerda->x,pendulo->hitboxCuerda->y, pendulo->hitboxCuerda->width*pendulo->hitboxCuerda->scale, pendulo->hitboxCuerda->height*pendulo->hitboxCuerda->scale,-pendulo->angle*180/PI))
                 {
                     pendulo->checked=true;
-                    entidades->push_back(new Bullet(event_queue, entidades, 0,pendulo->A*pendulo->w*sin(pendulo->w*pendulo->t - pendulo->phi), pendulo->hitbox->x,HEIGHT - pendulo->hitbox->y));//((Bullet*)(*i))->velocity + GRAVITY*pendulo->t
+                    extraBall = new Bullet(event_queue, entidades, 0,pendulo->A*pendulo->w*sin(pendulo->w*pendulo->t - pendulo->phi), pendulo->hitbox->x,HEIGHT - pendulo->hitbox->y);
+                    entidades->push_back(extraBall);
                 }
             }
 
@@ -150,6 +152,8 @@ void initGame(){
                 borrar.push_back(i);
         for(int x = 0; x < borrar.size(); x++){
             entidades->erase(borrar[x]);
+            if((*borrar[x])==extraBall)
+                extraBall=NULL;
             delete((*borrar[x]));
         }
         borrar.clear();
@@ -161,17 +165,20 @@ void initGame(){
         al_draw_text(font, al_map_rgb(255,255,255), WIDTH/2 + WIDTH/4, HEIGHT - 20, ALLEGRO_ALIGN_CENTRE, "750 m");
         al_draw_text(font, al_map_rgb(255,255,255), WIDTH, HEIGHT - 20, ALLEGRO_ALIGN_RIGHT, "1000 m");
 
-        if(Entidad::bullet_count == Entidad::bullet_max && Entidad::bullet_actual == 0){
-            string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
-            cout<<castle->frame<<image<<endl;
-            ALLEGRO_BITMAP *result = al_load_bitmap(image.c_str());
-            int w = al_get_bitmap_width(result);
-            int h = al_get_bitmap_height(result);
-            al_draw_scaled_rotated_bitmap(result, w/2, h/2, WIDTH/2, HEIGHT/2, 1, 1, 0,0);
-            al_flip_display();
-            al_rest(5);
-            al_destroy_bitmap(result);
-            break;
+        if(!extraBall)
+        {
+            if(Entidad::bullet_count == Entidad::bullet_max && Entidad::bullet_actual == 0){
+                string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
+                cout<<castle->frame<<image<<endl;
+                ALLEGRO_BITMAP *result = al_load_bitmap(image.c_str());
+                int w = al_get_bitmap_width(result);
+                int h = al_get_bitmap_height(result);
+                al_draw_scaled_rotated_bitmap(result, w/2, h/2, WIDTH/2, HEIGHT/2, 1, 1, 0,0);
+                al_flip_display();
+                al_rest(5);
+                al_destroy_bitmap(result);
+                break;
+            }
         }
         al_flip_display();
     }
