@@ -39,15 +39,18 @@ void closeGame();
 int Entidad::bullet_count = 0;
 int Entidad::bullet_max = 4;
 int Entidad::bullet_actual = 0;
+bool playAgain = true;
 list<Entidad*> *entidades = new list<Entidad*>();
 vector<list<Entidad*>::iterator>borrar;
 
-void showSplash(){
+void showSplash()
+{
     int red = 0;
     int green = 0;
     int blue = 0;
     int step = 2;
-    for(int i = 0; i <= 100; i++){
+    for(int i = 0; i <= 100; i++)
+    {
         blue+=step;
         red+=step;
         al_clear_to_color(al_map_rgb(red,green,blue));
@@ -67,16 +70,19 @@ int main()
     if(initAllegro() != 0)
         return -1;
 
-    while(true){
-        showSplash();
+    showSplash();
+    while(playAgain)
+    {
         initGame();
     }
     al_destroy_bitmap(bg1);
     al_destroy_bitmap(bg2);
+    al_destroy_bitmap(logo);
     al_destroy_event_queue(event_queue);
     al_destroy_timer(timer);
     al_destroy_sample(game);
     al_destroy_sample(effect);
+    delete(entidades);
 
     cout<<"---- Fin del Programa ----"<<endl;
 
@@ -85,7 +91,8 @@ int main()
 
 }
 
-void initGame(){
+void initGame()
+{
     ev = ALLEGRO_EVENT();
     reInitAllegro();
 
@@ -106,7 +113,8 @@ void initGame(){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
-            closeGame();
+            playAgain = false;
+            break;
         }
         al_clear_to_color(al_map_rgb(0,200,0));
 
@@ -129,17 +137,17 @@ void initGame(){
             }
 
             if((*i)->tipoObjeto!="Castle" && (*i)->tipoObjeto!="Canion" && (*i)->tipoObjeto!="Pendulo" && (*i)->tipoObjeto!="Explosion")
-            if((*i)->tipoObjeto=="Bullet")
-            {
-                if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
+                if((*i)->tipoObjeto=="Bullet")
                 {
-                    //((Bullet*)(*i))->checked=true;
-                    //((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
-                    entidades->push_back(new Explosion((*i)->hitbox->x, (*i)->hitbox->y, 1));
-                    al_play_sample(effect, 0.5, 0.0, 4.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
-                    (*i)->readyToDelete = true;
+                    if((((Bullet*)(*i))->checked==false) && checkCollicion(castle,*i))
+                    {
+                        //((Bullet*)(*i))->checked=true;
+                        //((Bullet*)(*i))->init((*i)->hitbox->x,HEIGHT - (*i)->hitbox->y,-((Bullet*)(*i))->velocity/8,0.1);
+                        entidades->push_back(new Explosion((*i)->hitbox->x, (*i)->hitbox->y, 1));
+                        al_play_sample(effect, 0.5, 0.0, 4.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
+                        (*i)->readyToDelete = true;
+                    }
                 }
-            }
 
             if((*i)->hitbox->x > WIDTH || (*i)->hitbox->y > HEIGHT || ( (*i)->tipoObjeto == "Explosion" ) && (((Explosion*)(*i))->destroied))
                 (*i)->readyToDelete = true;
@@ -150,7 +158,8 @@ void initGame(){
         for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
             if((*i)->readyToDelete)
                 borrar.push_back(i);
-        for(int x = 0; x < borrar.size(); x++){
+        for(int x = 0; x < borrar.size(); x++)
+        {
             entidades->erase(borrar[x]);
             if((*borrar[x])==extraBall)
                 extraBall=NULL;
@@ -165,27 +174,26 @@ void initGame(){
         al_draw_text(font, al_map_rgb(255,255,255), WIDTH/2 + WIDTH/4, HEIGHT - 20, ALLEGRO_ALIGN_CENTRE, "750 m");
         al_draw_text(font, al_map_rgb(255,255,255), WIDTH, HEIGHT - 20, ALLEGRO_ALIGN_RIGHT, "1000 m");
 
-        if(!extraBall)
+        if(Entidad::bullet_count == Entidad::bullet_max && Entidad::bullet_actual == 0)
         {
-            if(Entidad::bullet_count == Entidad::bullet_max && Entidad::bullet_actual == 0){
-                string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
-                cout<<castle->frame<<image<<endl;
-                ALLEGRO_BITMAP *result = al_load_bitmap(image.c_str());
-                int w = al_get_bitmap_width(result);
-                int h = al_get_bitmap_height(result);
-                al_draw_scaled_rotated_bitmap(result, w/2, h/2, WIDTH/2, HEIGHT/2, 1, 1, 0,0);
-                al_flip_display();
-                al_rest(5);
-                al_destroy_bitmap(result);
-                break;
-            }
+            string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
+            cout<<castle->frame<<image<<endl;
+            ALLEGRO_BITMAP *result = al_load_bitmap(image.c_str());
+            int w = al_get_bitmap_width(result);
+            int h = al_get_bitmap_height(result);
+            al_draw_scaled_rotated_bitmap(result, w/2, h/2, WIDTH/2, HEIGHT/2, 1, 1, 0,0);
+            al_flip_display();
+            al_rest(5);
+            al_destroy_bitmap(result);
+            break;
         }
         al_flip_display();
     }
 
     for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
-                borrar.push_back(i);
-    for(int x = 0; x < borrar.size(); x++){
+        borrar.push_back(i);
+    for(int x = 0; x < borrar.size(); x++)
+    {
         entidades->erase(borrar[x]);
         delete((*borrar[x]));
     }
@@ -194,10 +202,12 @@ void initGame(){
     al_stop_sample(&igame);
 }
 
-void closeGame(){
+void closeGame()
+{
     for(list<Entidad*>::iterator i = entidades->begin(); i != entidades->end(); i++)
         borrar.push_back(i);
-    for(int x = 0; x < borrar.size(); x++){
+    for(int x = 0; x < borrar.size(); x++)
+    {
         delete((*borrar[x]));
     }
     entidades->clear();
@@ -232,7 +242,8 @@ bool checkCollicion(Castle *castle,Entidad*bullet)
     return false;
 }
 
-void reInitAllegro(){
+void reInitAllegro()
+{
     event_queue = al_create_event_queue();
     if(!event_queue)
     {

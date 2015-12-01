@@ -24,13 +24,13 @@ Bullet::Bullet(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades, flo
     hitbox->x = 0;
     hitbox->y = HEIGHT - (hitbox->height * hitbox->scale /2);
 //    this->bullet_count++;
-    this->bullet_actual = 1;
+    this->bullet_actual++;
 }
 
 Bullet::~Bullet()
 {
     cout<<"Distancia Final: "<<hitbox->x<<" m"<<endl;
-    bullet_actual = 0;
+    bullet_actual--;
     al_destroy_bitmap(image);
     delete(hitbox);
 }
