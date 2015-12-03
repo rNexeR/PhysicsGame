@@ -332,7 +332,7 @@ static string intToString(int number)
 
 static void write(float xo, float yo, float vo, float angle)
 {
-    ofstream out("pyGraph.py",ios::out);
+    ofstream out("Assets/pyGraph.py",ios::out);
     string t = string("from math import sin, cos\n")+
 string("from numpy import array, arange\n")+
 string("from pylab import plot,xlabel,show, ylabel, title, grid\n")+

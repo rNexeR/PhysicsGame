@@ -2,7 +2,7 @@
 
 Canion::Canion(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades) : Entidad()
 {
-    shoot = al_load_sample("canion.ogg");
+    shoot = al_load_sample("Assets/canion.ogg");
     this->event_queue = event_queue;
     this->entidades = entidades;
     velocity = 80;
@@ -34,7 +34,7 @@ Canion::Canion(ALLEGRO_EVENT_QUEUE *event_queue, list<Entidad *> *entidades) : E
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
-    font = al_load_ttf_font("kenvector_future_thin.ttf",20,0 );
+    font = al_load_ttf_font("Assets/kenvector_future_thin.ttf",20,0 );
 
 }
 
@@ -82,7 +82,7 @@ void Canion::act(ALLEGRO_EVENT *ev){
             write(xbullet,ybullet,velocity,90);
         else
             write(xbullet,ybullet,velocity,-angle*180/PI);
-        system( "python pyGraph.py" );
+        system( "python Assets/pyGraph.py" );
     }
     if(angle < -PI/2)
         angle = -PI/2;

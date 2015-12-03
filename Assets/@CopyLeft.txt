@@ -1,0 +1,14 @@
+project-TILES
+/**
+* Proyecto realizado en Fisica 2
+* Fecha: IV Trimestre 2015 Unitec
+* Estudia el lanzamiento de proyectiles
+* y la oscilaciones de un pendulo simple
+* github: https://github.com/rNexeR/PhysicsGame
+* Integrantes:
+* -> Kevin Javier Estevez
+* -> Kevin Nexer Rodriguez
+* -> Sindy Carolina Palacios
+* -> Luis Jose Oseguera
+* -> David Eliseo Navarro
+*/
