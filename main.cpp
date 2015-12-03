@@ -70,7 +70,7 @@ int main()
     if(initAllegro() != 0)
         return -1;
 
-//    showSplash();
+    showSplash();
     while(playAgain)
     {
 //        write(10,10,100,90);

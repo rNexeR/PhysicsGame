@@ -3,10 +3,10 @@ from numpy import array, arange
 from pylab import plot,xlabel,show, ylabel, title, grid
 PI = 3.14159265359
 GRAVITY = 9.8
-Xo = 87
-Yo = 66
-Vo = 90
-Angle = 40
+Xo = 85
+Yo = 69
+Vo = 80
+Angle = 47
 Angle = Angle*PI/180
 print Angle
 Vox = Vo*cos(Angle)
