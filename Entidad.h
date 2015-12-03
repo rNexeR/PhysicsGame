@@ -5,6 +5,7 @@
 //Librerías y archivos necesarios
 #include "Box.h"
 #include "Global.h"
+//#include <math.h>
 #include <allegro5/allegro.h>
 #include "allegro5/allegro_image.h"
 #include <allegro5/allegro_primitives.h>
@@ -17,6 +18,7 @@
 #include <map>
 #include <vector>
 #include <list>
+#include <fstream>
 #include <fstream>
 
 using namespace std;
@@ -37,7 +39,7 @@ class Entidad
         Entidad();
         Entidad(Box*,float,string);
         virtual ~Entidad();
-        string intToString(int number);
+//        string intToString(int number);
     protected:
     private:
 };

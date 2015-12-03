@@ -70,9 +70,10 @@ int main()
     if(initAllegro() != 0)
         return -1;
 
-    showSplash();
+//    showSplash();
     while(playAgain)
     {
+//        write(10,10,100,90);
         initGame();
     }
     al_destroy_bitmap(bg1);
@@ -128,7 +129,7 @@ void initGame()
             if(pendulo->checked==false && (*i)->tipoObjeto=="Bullet")//pendulo->checked==false &&
             {
 //                if(checkCollicion((*i),pendulo->hitboxCuerda))
-                if(hitboxCollision((*i)->hitbox->x, (*i)->hitbox->y, (*i)->hitbox->width*(*i)->hitbox->scale, (*i)->hitbox->height*(*i)->hitbox->scale,0,pendulo->hitboxCuerda->x,pendulo->hitboxCuerda->y, pendulo->hitboxCuerda->width*pendulo->hitboxCuerda->scale, pendulo->hitboxCuerda->height*pendulo->hitboxCuerda->scale,-pendulo->angle*180/PI))
+                if(hitboxCollision((*i)->hitbox->x, (*i)->hitbox->y, (*i)->hitbox->width*(*i)->hitbox->scale, (*i)->hitbox->height*(*i)->hitbox->scale,0,pendulo->hitboxCuerda->x,pendulo->hitboxCuerda->y, pendulo->hitboxCuerda->width*pendulo->hitboxCuerda->scale, pendulo->hitboxCuerda->height*pendulo->hitboxCuerda->scale,-pendulo->angle*180/M_PI))
                 {
                     pendulo->checked=true;
                     extraBall = new Bullet(event_queue, entidades, 0,pendulo->A*pendulo->w*sin(pendulo->w*pendulo->t - pendulo->phi), pendulo->hitbox->x,HEIGHT - pendulo->hitbox->y);
@@ -146,6 +147,8 @@ void initGame()
                         entidades->push_back(new Explosion((*i)->hitbox->x, (*i)->hitbox->y, 1));
                         al_play_sample(effect, 0.5, 0.0, 4.0, ALLEGRO_PLAYMODE_ONCE, &ieffect);
                         (*i)->readyToDelete = true;
+//                        write(((Bullet*)(*i))->xo,HEIGHT - ((Bullet*)(*i))->yo,(*i)->velocity,((Bullet*)(*i))->angle*180/PI);
+                        system( "python pyGraph.py" );
                     }
                 }
 
@@ -176,7 +179,7 @@ void initGame()
 
         if(Entidad::bullet_count == Entidad::bullet_max && Entidad::bullet_actual == 0)
         {
-            string image = "Assets/dl" + canion->intToString(castle->frame) + ".png";
+            string image = "Assets/dl" + intToString(castle->frame) + ".png";
             cout<<castle->frame<<image<<endl;
             ALLEGRO_BITMAP *result = al_load_bitmap(image.c_str());
             int w = al_get_bitmap_width(result);

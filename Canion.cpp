@@ -49,7 +49,7 @@ Canion::~Canion()
 void Canion::act(ALLEGRO_EVENT *ev){
     validarTeclas(ev);
     if(key[KEY_UP])
-        angle -= PI/1000;
+        angle -= M_PI/1000;
     if(key[KEY_DOWN])
         angle += PI/1000;
     if(key[KEY_RIGHT] && velocity <= 148)
@@ -59,10 +59,30 @@ void Canion::act(ALLEGRO_EVENT *ev){
     if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_SPACE && this->bullet_actual == 0 && this->bullet_count < this->bullet_max){
         int xbullet = hitbox2->x + hitbox2->width/2*cos(angle)*hitbox2->scale;
         int ybullet = HEIGHT - (hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale));
+//        write(xbullet,ybullet + HEIGHT,velocity,-1*angle);
         entidades->push_back(new Bullet(event_queue, entidades, -1*angle, velocity, xbullet, ybullet));
         entidades->push_back(new Explosion(xbullet, HEIGHT - ybullet));
         al_play_sample(shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &ishoot);
         this->bullet_count++;
+        cout<<"xbullet: "<<xbullet<<endl;
+        cout<<"ybullet: "<<ybullet<<endl;
+        cout<<"velocity: "<<velocity<<endl;
+        cout<<"angle: "<<-angle*180/PI<<endl;
+
+        if(angle==-PI/2)
+            write(xbullet,ybullet,velocity,90);
+        else
+            write(xbullet,ybullet,velocity,-angle*180/PI);
+    }
+    if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_ENTER)
+    {
+        int xbullet = hitbox2->x + hitbox2->width/2*cos(angle)*hitbox2->scale;
+        int ybullet = HEIGHT - (hitbox2->y + (hitbox2->width/2*sin(angle)*hitbox2->scale));
+        if(angle==-PI/2)
+            write(xbullet,ybullet,velocity,90);
+        else
+            write(xbullet,ybullet,velocity,-angle*180/PI);
+        system( "python pyGraph.py" );
     }
     if(angle < -PI/2)
         angle = -PI/2;
@@ -137,7 +157,7 @@ void Canion::draw(){
     mostrar = "Yo bullet: " + intToString(ybullet) + " m";
     al_draw_text(font, al_map_rgb(255,255,255), WIDTH, 60, ALLEGRO_ALIGN_RIGHT, mostrar.c_str());
 //    Dibujar el canon
-    cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
+//    cout<<"HITBOX 2 Y: "<<hitbox2->y<<endl;
     al_draw_scaled_rotated_bitmap(image[1], hitbox2->width/2, hitbox2->height/2, hitbox2->x, hitbox2->y,hitbox2->scale,hitbox2->scale, angle, 0);
 
     //Dibujar la rueda
