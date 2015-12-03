@@ -13,6 +13,8 @@ class Bullet : public Entidad
         ALLEGRO_BITMAP *image;
         list<Entidad *> *entidades;
         double angle, degree, vox, voy, xo, yo, tiempo;
+        vector<float> x_axis,y_axis;
+        float r=0.5;
         bool checked;
         virtual ~Bullet();
         void init(float xposition, float yposition, float velocity, float angle);

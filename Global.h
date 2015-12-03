@@ -1,10 +1,12 @@
 #include <math.h>
 #include <iostream>
+#include <fstream>
 #include <vector>
+#include <Python.h>
 using namespace std;
 
 static const int WIDTH = 1000, HEIGHT = 450;
-static double PI = 3.1416;
+static double PI = M_PI;//3.1416;
 static const float FPS = 60;
 static const double GRAVITY = 9.8;
 
@@ -310,4 +312,64 @@ static bool hitboxCollision(int a_x,int a_y,int a_width,int a_height,float a_ang
 static bool hitboxCollision(Box *b1,float a1,Box *b2,float a2)
 {
     return hitboxCollision(b1->x,b1->y,b1->width,b1->height,a1,b2->x,b2->y,b2->width,b2->height,a2);
+}
+
+static string intToString(int number)
+{
+    if (number == 0)
+        return "0";
+    std::string temp="";
+    std::string returnvalue="";
+    while (number>0)
+    {
+        temp+=number%10+48;
+        number/=10;
+    }
+    for (int i=0; i<(int)temp.length(); i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
+}
+
+static void write(float xo, float yo, float vo, float angle)
+{
+    ofstream out("pyGraph.py",ios::out);
+    string t = string("from math import sin, cos\n")+
+string("from numpy import array, arange\n")+
+string("from pylab import plot,xlabel,show, ylabel, title, grid\n")+
+
+"PI = 3.1416\n"+
+"GRAVITY = 9.8\n"+
+"Xo = " + intToString(xo) + "\n"+
+"Yo = " + intToString(yo) +"\n"+
+"Vo = " + intToString(vo) +"\n"+
+"Angle = " + intToString(angle) + "\n"+
+"Angle = Angle*PI/180\n"+
+"print Angle\n"+
+"Vox = Vo*cos(Angle)\n"+
+"Voy = Vo*sin(Angle)\n"+
+
+"x = []\n"+
+"y = []\n"+
+
+"tiempo = arange(0,100,0.3)\n"+
+
+"for t in tiempo:\n"+
+"	xtemp = Xo + (Vox*t)\n"+
+"	ytemp = Yo + (Voy*t) - (0.5*GRAVITY*t*t)\n"+
+"	if (ytemp < 0):\n"+
+"		break\n"+
+"	x.append(xtemp)\n"+
+"	y.append(ytemp)\n"+
+
+"plot(x,y)\n"+
+"xlabel('x')\n"+
+"ylabel('y')\n"+
+"title('Lanzamiento de Proyectil')\n"+
+"grid(True)\n"+
+"show()";
+
+    out.write((char*)t.c_str(),t.size());
+    out.close();
+
+//    system( "python pyGraph.py" );
 }

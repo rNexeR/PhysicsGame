@@ -24,16 +24,16 @@ Pendulo::Pendulo() : Entidad()
     t=0;
     A=hitboxCuerda->height*hitboxCuerda->scale/2;
     w=0.2491451;//0.098245614;//0.313441564;
-    phi=PI/2;
-    angle=PI/2;
+    phi=M_PI/2;
+    angle=M_PI/2;
 
     hitbox->scale = 0.15;
     hitbox->width = al_get_bitmap_width(ball);
     hitbox->height = al_get_bitmap_height(ball);
     xcenter = hitbox->width/2;
     ycenter = hitbox->height/2;
-    hitbox->x = hitboxCuerda->x - 2*A*cos(t*PI/180);//(xcenter*hitbox->scale) + xcenterCuerda/4-A*100;
-    hitbox->y = 2*A*sin(t*PI/180);
+    hitbox->x = hitboxCuerda->x - 2*A*cos(t*M_PI/180);//(xcenter*hitbox->scale) + xcenterCuerda/4-A*100;
+    hitbox->y = 2*A*sin(t*M_PI/180);
 
 }
 
@@ -50,7 +50,7 @@ void Pendulo::act(ALLEGRO_EVENT* ev)
     f++;
     t+=0.07;
 //    angle -= signo*PI/180;
-    angle = atan2((-hitbox->y),(WIDTH/2 - (hitbox->x + hitbox->width*hitbox->scale/2 + signo*hitboxCuerda->width*hitboxCuerda->scale/8))) + PI/2;
+    angle = atan2((-hitbox->y),(WIDTH/2 - (hitbox->x + hitbox->width*hitbox->scale/2 + signo*hitboxCuerda->width*hitboxCuerda->scale/8))) + M_PI/2;
     hitbox->x = hitboxCuerda->x + 2*A*sin((w*t - phi));
     hitbox->y = signo*2*A*cos((w*t - phi));
 

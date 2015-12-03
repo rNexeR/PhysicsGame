@@ -53,8 +53,15 @@ void Bullet::act(ALLEGRO_EVENT *ev){
     tiempo += 0.1;
     hitbox->x = xo + vox*tiempo;
     hitbox->y = HEIGHT - (yo + voy*tiempo - (0.5*GRAVITY*tiempo*tiempo));
+
+    x_axis.push_back(hitbox->x);
+    y_axis.push_back(hitbox->y);
 }
 
 void Bullet::draw(){
     al_draw_scaled_rotated_bitmap(image, xcenter, ycenter, hitbox->x, hitbox->y,hitbox->scale,hitbox->scale, degree, 0);
+    for(int i=0;i<x_axis.size();i++)
+    {
+        al_draw_circle(x_axis[i],y_axis[i],r,al_map_rgb(0,0,0),0);
+    }
 }
