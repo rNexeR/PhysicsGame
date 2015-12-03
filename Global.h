@@ -337,8 +337,8 @@ static void write(float xo, float yo, float vo, float angle)
 string("from numpy import array, arange\n")+
 string("from pylab import plot,xlabel,show, ylabel, title, grid\n")+
 
-"PI = " intToString(M_PI) "\n"+
-"GRAVITY = " + intToString(GRAVITY) + "\n"+
+"PI = 3.14159265359\n"+
+"GRAVITY = 9.8\n"+
 "Xo = " + intToString(xo) + "\n"+
 "Yo = " + intToString(yo) +"\n"+
 "Vo = " + intToString(vo) +"\n"+
