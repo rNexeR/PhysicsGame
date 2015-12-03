@@ -70,7 +70,7 @@ int main()
     if(initAllegro() != 0)
         return -1;
 
-//    showSplash();
+    showSplash();
     while(playAgain)
     {
 //        write(10,10,100,90);
@@ -312,13 +312,13 @@ int initAllegro()
         cout<<"failed to initialize Audio!"<<endl;
     }
 
-    game = al_load_sample("Szymon Matuszewski - Space Chase.ogg");
-    effect = al_load_sample("explosion.ogg");
+    game = al_load_sample("Assets/Szymon Matuszewski - Space Chase.ogg");
+    effect = al_load_sample("Assets/explosion.ogg");
 
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
-    font = al_load_ttf_font("kenvector_future_thin.ttf",10,0 );
+    font = al_load_ttf_font("Assets/kenvector_future_thin.ttf",10,0 );
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
@@ -328,6 +328,6 @@ int initAllegro()
 
     bg1 = al_load_bitmap("Assets/bg1.png");
     bg2 = al_load_bitmap("Assets/bg2.png");
-    logo = al_load_bitmap("logo.png");
+    logo = al_load_bitmap("Assets/logo.png");
     return 0;
 }
